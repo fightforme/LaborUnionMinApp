@@ -1,0 +1,32 @@
+{
+  "pages": [
+    "pages/information/information",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#E54847",
+    "navigationBarTitleText": "长银五八员工快递信息",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#E54847",
+    "list": [
+      {
+        "pagePath": "pages/information/information",
+        "text": "快递信息",
+        "iconPath": "images/information.png",
+        "selectedIconPath": "images/information-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine-av.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

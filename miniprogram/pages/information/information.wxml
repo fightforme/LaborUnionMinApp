@@ -1,0 +1,15 @@
+<view hidden='{{isCY58 == 0}}'>
+    <view>
+      <!--<view style='background:url({{images}}) no-repeattop/cover' ></view>-->
+      <image class='img' src='{{image}}' bindtap='upLoadImg' wx:if="{{images.length <= 0}}"> True ></image>
+      <image class='img1' src='{{images}}' bindtap='upLoadImg' wx:if="{{images.length > 0}}"> True ></image>
+    </view>
+    <van-field label="姓名" required  value="{{ name }}" placeholder="请输入您的姓名" bind:change="onNameChange" />
+    <van-field required label="多宝账号" value="{{ dbAccount }}" placeholder="请输入您的多宝账号" bind:change="onDbAccountChange" />
+    <van-field label="手机号码" required value="{{ tel }}" placeholder="请输入您的手机号码" bind:change="onTelChange" />
+    <van-field label="邮寄地址" required value="{{ address }}" placeholder="请输入您的邮寄地址" bind:change="onAddressChange" />
+    <!--<van-area area-list="{{ areaList }}" bind:confirm = "onAeraConfirm"/>-->
+    <van-button type="danger" size = 'large' bindtap='submit'>提交信息</van-button>
+</view>
+
+<image src='../../images/tishi.png' hidden='{{isCY58 == 1}}'>请确认该微信是否在长银58彩虹群中</image> 
