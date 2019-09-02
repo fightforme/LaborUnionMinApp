@@ -1,7 +1,29 @@
 <view class='profile'>
-<view class="profile-img">
-  <open-data type="userAvatarUrl" ></open-data>
-</view>
-  <open-data type="userNickName" class="profile-name"></open-data>
-</view>
-<button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">获取用户信息</button>
+    <view class="profile-img">
+      <open-data type="userAvatarUrl" ></open-data>
+    </view>
+    <open-data type="userNickName" class="profile-name"></open-data>
+    <image class="profile-name1" class="profile-name1" style='width:210rpx;height:45rpx;' src='../../images/title.png'></image>
+ </view>
+<template name="msgItem">
+  <view >
+  <van-field required label="姓名" value="{{ name }}" placeholder="请输入您的姓名" bind:change="onNameChange" />
+  <van-field required label="多宝账号" value="{{ dbAccount }}" placeholder="请输入您的多宝账号" bind:change="onDbAccountChange" />
+
+      <van-button size = 'large' type="danger" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" >点击加入长银五八</van-button>
+      <open-data type="groupName"></open-data>
+  </view> 
+</template>
+ <template is="{{isCY58 == 0?'msgItem':'none'}}"/>
+ <template name="none">
+    
+</template>
+
+<view class="line"></view> 
+<van-button type="danger" round  size="large" bindtap='getAddress'>收货地址管理</van-button>
+<view class="line"></view> 
+<van-button type='danger' round  size="large" bindtap='getBackground'>我的订单</van-button>
+<view class="line"></view> 
+<van-button type='danger' round  size="large" open-type="contact">联系客服</van-button>
+<view class="line"></view> 
+<van-button  type="warning" round  size="large" bindtap='toManager' wx:if='{{userInfo.permiss == 0}}' >物资管理中心</van-button>

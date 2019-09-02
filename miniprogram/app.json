@@ -1,13 +1,26 @@
 {
   "pages": [
-    "pages/information/information",
-    "pages/profile/profile"
+    "pages/welcome/welcome",
+    "pages/profile/profile",
+    "pages/address/address",
+    "pages/main/main",
+    "pages/goods/goods",
+    "pages/personInfo/personInfo",
+    "pages/votePage/votePage",
+    "pages/publicAction/publicAction",
+    "pages/manager/manager",
+    "pages/editGoods/editGoods",
+    "pages/test/test",
+    "pages/cart/cart",
+    "pages/order/order",
+    "pages/goodsDetail/goodsDetail",
+    "pages/addressEdit/addressEdit"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#E54847",
-    "navigationBarTitleText": "长银五八员工快递信息",
+    "navigationBarTitleText": "长银五八工会",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
@@ -15,16 +28,16 @@
     "selectedColor": "#E54847",
     "list": [
       {
-        "pagePath": "pages/information/information",
-        "text": "快递信息",
-        "iconPath": "images/information.png",
-        "selectedIconPath": "images/information-active.png"
+        "pagePath": "pages/main/main",
+        "text": "工会",
+        "iconPath": "public2.png",
+        "selectedIconPath": "public-av.png"
       },
       {
         "pagePath": "pages/profile/profile",
         "text": "我的",
-        "iconPath": "images/mine.png",
-        "selectedIconPath": "images/mine-av.png"
+        "iconPath": "mine.png",
+        "selectedIconPath": "mine-av.png"
       }
     ]
   },

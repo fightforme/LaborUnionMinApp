@@ -1,0 +1,28 @@
+<view class='wraper'>
+  <scroll-view scroll-y bindscrolltolower="toShowMore" style="height:1075rpx;">
+    
+    <view >
+      <view wx:for="{{goodsIsSelectShow}}" wx:key="{{index}}">
+        <van-card desc="{{item.GOODS_DESC}}" tag='限{{item.NUM}}套' title="{{item.GOODS_NAME}}" thumb="{{item.FILEIDS[0]}}" thumb-mode='aspectFill' thumb-link='../goodsDetail/goodsDetail?goodsid={{item._id}}&index={{index}}'> 
+          <van-tag plain type="danger" slot="tags">{{item.TAGER1}}</van-tag>
+          <van-tag plain type="danger" slot="tags">{{item.TAGER2}}</van-tag>
+          <view slot="bottom">所属节日：{{item.FESTIVAL}}</view>
+          <view slot="bottom">备注：{{item.REMARK}}</view>
+          <view slot="footer">
+            <van-stepper value="{{ value }}" integer min="0" max="{{item.NUM}}" step="1" bind:change="changeGoodsNum" data-goodsid='{{item._id}}' />
+          </view>
+        </van-card>
+           <view class="line"></view>
+      </view>
+      </view>
+  </scroll-view>
+</view>
+
+<view style="height: 20%;">
+  <van-goods-action>
+    <van-goods-action-icon icon="chat-o" text="客服" open-type="contact" />
+    <van-goods-action-icon icon="cart-o" text="背包" info="{{cartGoodsNum}}" bind:click="openPackage" />
+    <van-goods-action-button text="加入背包" type="warning" bind:click='packingIn' />
+    <van-goods-action-button text="立即打包" bind:click='packageGo' />
+  </van-goods-action>
+</view>

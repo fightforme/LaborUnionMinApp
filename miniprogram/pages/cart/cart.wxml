@@ -1,0 +1,82 @@
+<view class='wraper'>
+  <scroll-view scroll-y bindscrolltolower="toShowMore" style="height:780rpx;">
+    
+    <view >
+      <view wx:for="{{cartGoods}}" wx:key="{{index}}">
+        <van-card desc="{{item.GOODS_DESC}}"  title="{{item.GOODS_NAME}}" thumb="{{item.FILEIDS[0]}}" thumb-link='../goodsDetail/goodsDetail?goodsid={{item._id}}&index={{index}}' num="{{cartGoodsCountList[index]}}">
+          <view slot="bottom">所属节日：{{item.FESTIVAL}};</view>
+          <view slot="bottom">备注：{{item.REMARK}};</view>
+          <view slot="footer">
+            <van-button size="mini" data-goodsId='{{item._id}}' data-index='{{index}}' bindtap='deleteCartGoods'>删除</van-button>
+          </view>
+        </van-card>
+        <view class="line"></view> 
+      </view>
+      </view>
+  </scroll-view>
+</view>
+
+<block>
+ 
+<van-submit-bar
+  button-text="{{buttonName}}"
+  bind:submit="powerDrawer"
+  disabled="{{canSubmit}}"
+  tip="{{canSubmit}}"
+  data-statu="open"
+>
+ <view slot="tip">
+    最多只能选择{{limitNum}}个套餐，也不能为空哦，请重新选择
+  </view>
+  <text style="margin-left:250rpx;font-size:40rpx;" >总计:</text><text style="margin-left:20rpx;font-size:40rpx;color:#f10909">{{totalNum}} 件</text>
+  <view slot="top">
+    <van-cell title="{{address.userName}} {{address.telNumber}}" value="" size="large" label="{{address.provinceName}} {{address.cityName}} {{address.countyName}} {{address.detailInfo}}"  icon="location-o" is-link  bind:tap = 'selectAddress'>
+</van-cell>
+  </view>
+</van-submit-bar>
+
+
+<form  bindsubmit="submitForm" report-submit="true">
+<!--button-->  
+
+ 
+  
+<!--mask-->  
+<view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>  
+<!--content-->  
+<!--使用animation属性指定需要执行的动画-->  
+<view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">  
+  
+  <!--drawer content-->  
+  <view class="drawer_title">订单详情</view>  
+  <view class="drawer_content">      
+    <view class="top grid" wx:for="{{cartGoods}}" wx:key="index">  
+      <label class="title col-0">物资名称与数量:</label>  
+      <label  class="input_base input_h30 col-1">{{item.GOODS_NAME}} X {{cartGoodsCountList[index]}}件</label >
+      
+    </view>  
+    <view class="top grid">  
+      <label class="title col-0">物资总数:</label>  
+      <label  class="input_base input_h30 col-1"  >{{totalNum}}件</label >  
+    </view>  
+    <view class="top grid">  
+      <label class="title col-0">收货人姓名:</label>  
+      <label  class="input_base input_h30 col-1"  >{{address.userName}}</label >       
+    </view>  
+    <view class="top grid">  
+      <label class="title col-0">收货人手机号:</label>  
+      <label  class="input_base input_h30 col-1" >{{address.telNumber}}  </label >  
+    </view>  
+     <view class="top grid">  
+      <label class="title col-0">收货地址:</label>  
+      <label  class="input_base input_h30 col-1" >{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</label >  
+    </view>  
+      
+  </view>  
+  <view>
+  <view><button type="primary" style="float:left;margin-left:190rpx;" size="mini" bindtap="powerDrawer" data-statu="close" >取消</button> </view>
+  <view><button type="warn" size="mini" formType="submit" bindtap="powerDrawer" style="float:left;margin-left:10rpx;"  formType="submit" bindtap="onClickButton">确定</button> </view>
+</view>
+</view>
+</form>
+</block>

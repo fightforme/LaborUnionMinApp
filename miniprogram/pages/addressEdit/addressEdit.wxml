@@ -1,0 +1,57 @@
+<van-cell-group>
+  <van-field
+    value="{{ userName }}"
+    label="收货人"
+    type="textarea"
+    placeholder="姓名"
+    autosize
+    required
+    border="{{ false }}"
+    bind:change="userName"
+  />
+  <van-field
+    value="{{ telNumber }}"
+    label="手机号码"
+    type='digit'
+    maxlength = "11"
+    required
+    placeholder="11位手机号码"
+    border="{{ false }}"
+    bind:change="telNumber"
+  />
+  <view >
+ 
+  <picker mode="region" label="选择省市区"    bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+    <van-field required class="picker" style="color:black;" disabled label="选择省市区" placeholder="{{region[0]}} {{region[1]}} {{region[2]}}" value=' {{region[0]}} {{region[1]}} {{region[2]}}'>
+     
+    </van-field>
+  </picker>
+</view>
+  <van-field
+  required
+    value="{{ detailInfo }}"
+    label="详细地址"
+    type="textarea"
+    placeholder="街道门牌信息"
+    autosize
+    border="{{ false }}"
+     bind:change="detailInfo"
+  />
+  <van-field
+    value="{{ postCode }}"
+    label="邮政编码"
+    type='digit'
+    required
+    placeholder="邮政编码"
+    autosize
+    border="{{ false }}"
+  />
+  <view>
+      <picker mode="selector" value="{{index}}" range='{{selectList}}' bindchange="bindIsDefault">
+       <van-field class="inputView"  required label="默认地址:" disabled placeholder="{{selectList[index]}}" value='{{isDefault}}'>
+      </van-field>
+      </picker>
+    </view>
+</van-cell-group>
+<view style="float:right" ><van-button size="small" type="primary"  bind:click="saveAddress">保存</van-button></view>
+

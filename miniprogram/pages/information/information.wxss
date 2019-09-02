@@ -5,3 +5,7 @@
 .img1{
   width:100%;
 }
+
+.tel{
+  width: 100%;
+}

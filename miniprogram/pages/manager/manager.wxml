@@ -1,0 +1,72 @@
+<block>
+  <van-collapse value="{{ activeNames }}" bind:change="onChange">
+    <van-collapse-item title='劳保物资资料管理' name="1">
+
+      <van-collapse value="{{ activeNames1 }}" bind:change="onChange1">
+        <van-collapse-item title="物资信息上传" name="1">
+          <block>
+            <van-cell-group>
+              <van-field required label="物资名称:" bindchange="goodsNameChange" autosize clearable></van-field>
+              <van-field required label='物资描述:' bindchange='goodsDescChange' autosize clearable></van-field>
+              <van-field required label='   标签1:' bindchange='tager1Change' clearable></van-field>
+              <van-field required label='   标签2:' bindchange='tager2Change' clearable></van-field>
+              <van-field required label='选的最大数:' type='digit' bindchange='numChange' clearable></van-field>
+              <van-field required label='选的最小数:' type='digit' bindchange='minNumChange' clearable></van-field>
+              <van-field type="textarea" autosize label='   备注:' bindchange='remarkChange' autosize clearable></van-field>
+              <view>
+                <picker mode="selector" value="{{index}}" range='{{festivalList}}' bindchange="bindFestival">
+                  <van-field class="inputView" disabled required label="所属节日:" placeholder="{{festivalList[index]}}" value='{{festival}}'>
+                  </van-field>
+                </picker>
+              </view>
+              <view>
+                <picker mode="date" value="{{date}}" start="1900-09-01" end="2999-09-01" bindchange="bindDateChange">
+                  <van-field class="inputView" required disabled label="添加日期:" placeholder="{{date}}" value='{{date}}'>
+                  </van-field>
+                </picker>
+              </view>
+              <view>
+                <picker mode="selector" value="{{index}}" range='{{selectList}}' bindchange="bindIsSelect">
+                  <van-field class="inputView" required disabled label="是否可选:" placeholder="{{selectList[index]}}" value='{{isSelect}}'>
+                  </van-field>
+                </picker>
+              </view>
+              <van-button type="warning" bindtap="uploadImg">上传图片</van-button>
+              <view>
+                <image class="goods-img" src="{{item}}" wx:for="{{images}}" wx:key="{{index}}"></image>
+              </view>
+            </van-cell-group>
+            <van-button type="primary" size='large' bindtap="submitGoodsInfo">上传物资信息</van-button>
+          </block>
+        </van-collapse-item>
+        <scroll-view scroll-y bindscrolltolower="toShowMore" style="height: 300px;">
+          <view>
+            <view wx:for="{{goodsInfoShow}}" wx:key="{{index}}">
+              <image class="goods-img" src="{{item}}" wx:for="{{item.FILEIDS}}" wx:key="{{index}}"></image>
+              <van-card num="{{item.NUM}}" desc="{{item.GOODS_DESC}}" title="{{item.GOODS_NAME}}">
+                <van-tag plain type="danger" slot="tags">{{item.TAGER1}}</van-tag>
+                <van-tag plain type="danger" slot="tags">{{item.TAGER2}}</van-tag>
+                <text slot="bottom">备注：{{item.REMARK}};</text>
+                <text slot="bottom">是否可选：{{item.IS_SELECT}};</text>
+                <text slot="bottom">所属节日：{{item.FESTIVAL}};</text>
+                <view slot="footer">
+                  <van-button size="mini" data-goodsId='{{item._id}}' data-goodsIndex='{{index}}' bindtap='editGoodsInfo'>编辑</van-button>
+                  <van-button size="mini" data-goodsId='{{item._id}}' data-goodsIndex='{{index}}' bindtap='deleteGoods'>删除</van-button>
+                </view>
+              </van-card>
+            </view>
+          </view>
+        </scroll-view>
+      </van-collapse>
+    </van-collapse-item>
+  </van-collapse>
+</block>
+<block>
+  <van-collapse value="{{ activeNames3 }}" bind:change="onChange3">
+    <van-collapse-item title="系统配置参数" name="1">
+      <van-field  label="可选最多件数:" bindchange="toMaxNum" type='digit' value='{{limitNum}}' autosize clearable></van-field>
+      <view><text class='isRegist' style="font-size:35rpx;margin-left:34rpx;">是否关闭注册:</text><van-switch style="margin-left:350rpx;" size='40rpx' checked="{{ isRegist }}" bind:change="onSwitch" active-color="#07c160" inactive-color="#f44" /></view>
+       <van-button type="primary" size='large' bindtap="changeParam">修改配置</van-button>
+    </van-collapse-item>
+  </van-collapse>
+</block>

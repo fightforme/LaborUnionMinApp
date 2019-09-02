@@ -6,6 +6,12 @@
   width: 100%;
 }
 
+.line { 
+ width: 100%; 
+ height: 10px; 
+ background-color: #ffffff; 
+ margin-top: 1px; 
+} 
 .profile-img{
   width: 200rpx;
   height: 200rpx;
@@ -23,4 +29,11 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, 270rpx);
+}
+.profile-name1{
+  font-size: 36rpx;
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 320rpx);
 }

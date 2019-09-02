@@ -1,0 +1,21 @@
+{
+  "usingComponents": {
+    "van-card": "/vant-weapp/card/",
+    "van-button": "/vant-weapp/button/",
+    "van-checkbox": "/vant-weapp/checkbox/",
+    "van-checkbox-group": "/vant-weapp/checkbox-group/",
+    "van-cell": "/vant-weapp/cell",
+    "van-cell-group": "/vant-weapp/cell-group/",
+    "van-collapse": "/vant-weapp/collapse/",
+    "van-collapse-item": "/vant-weapp/collapse-item/",
+    "van-field": "vant-weapp/field/",
+    "van-tag": "/vant-weapp/tag/",
+    "van-icon": "/vant-weapp/icon/",
+    "van-stepper": "/vant-weapp//stepper/",
+    "van-goods-action": "/vant-weapp/goods-action/",
+    "van-goods-action-icon": "/vant-weapp/goods-action-icon/",
+    "van-goods-action-button": "/vant-weapp/goods-action-button/",
+    "van-radio": "/vant-weapp/radio/",
+    "van-radio-group": "/vant-weapp/radio-group/"
+  }
+}
