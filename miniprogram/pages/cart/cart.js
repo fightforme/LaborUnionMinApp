@@ -2,7 +2,6 @@
 
 const db = wx.cloud.database();
 const app = getApp();
-var scence;
 Page({
 
   /**
@@ -17,13 +16,16 @@ Page({
     cartGoods: [],
     userOpenId: '',
     allAddress:'',
+    scence:'',
     address: {
       provinceName: '请选择收货地址'
     },
     totalNum: 0,
+    totalPrice:0,
     canSubmit: '',
 
     limitNum: 5,
+    limitPrice:'',
     cartId: '',
 
     buttonName: '全部打包',
@@ -37,12 +39,13 @@ Page({
   onLoad: function(options) {
     console.log("onLoad")
     this.setData({
-      limitNum: app.globalData.param.LIMIT_NUM
+      limitNum: app.globalData.param.LIMIT_NUM,
+      limitPrice:app.globalData.param.LIMIT_PRICE
     })
     console.log("cart onLoad")
     console.log(options)
     this.data.canSubmit = true
-    scence = options.scence;
+    this.data.scence = options.scence;
     if (options.scence == 1) {
 
       wx.setNavigationBarTitle({
@@ -64,17 +67,19 @@ Page({
     this.data.userInfo = app.globalData.userInfo;
     var that = this
     var cartGoodsInfo = wx.getStorageSync('cart');
-
+    console.log(cartGoodsInfo);
     that.setData({
       cartGoodsCountList: cartGoodsInfo.cartGoodsCountListStorage,
       totalNum: cartGoodsInfo.cartGoodsTotalNumStorage,
+      totalPrice:cartGoodsInfo.cartGoodsTotalPriceStorage,
       cartGoodsIdList: cartGoodsInfo.cartGoodsIdListStorage,
       cartGoods: cartGoodsInfo.cartGoodsStorage,
       cartGoodsInfo: cartGoodsInfo,
     })
-    if (scence == 1) {
+    if (this.data.scence == 1) {
       this.data.cartId = cartGoodsInfo.cartIdStorage
     }
+    console.log(this.data.cartId);
     if (this.data.totalNum > this.data.limitNum) {
       that.setData({
         canSubmit: true
@@ -85,13 +90,13 @@ Page({
       if (res.data.length > 0) {
         that.data.allAddress = res.data;
         for (let i = 0; i < res.data.length; i++) {
-          if (scence == 3 && res.data[i]._id == that.data.addressId){
+          if (that.data.scence == 3 && res.data[i]._id == that.data.addressId){
             that.setData({
               address: res.data[i].ADDRESS_INFO
             })
             return
           }
-          if (scence != 3&&res.data[i].IS_DEFAULT == '是') {
+          if (that.data.scence != 3&&res.data[i].IS_DEFAULT == '是') {
             that.setData({
               address: res.data[i].ADDRESS_INFO
             })
@@ -133,10 +138,13 @@ Page({
     var addressInfo = wx.getStorageSync("selectAddressInfo");
     console.log(addressInfo);
     if (addressInfo!=''){
+      console.log("if");
       this.setData({
         address: addressInfo.addressInfoStorage.ADDRESS_INFO
       })
     } else{
+      console.log("else");
+      console.log(this.data.scence);
       var options={
         scence:this.data.scence
       }
@@ -187,15 +195,20 @@ Page({
     var cartGoodsIdList = this.data.cartGoodsIdList
     var cartGoods = this.data.cartGoods
     var totalNum = this.data.totalNum
+    var totalPrice = this.data.totalPrice
     var canSubmit = false
     let index = options.target.dataset.index;
-
+    console.log(this.data.scence);
     let num = cartGoodsCountList[index]
+    let price = cartGoods[index].PRICE
     cartGoodsCountList.splice(index, 1);
     cartGoodsIdList.splice(index, 1);
     cartGoods.splice(index, 1);
     num = ~~totalNum - ~~num;
-    if (num > this.data.limitNum) {
+    price = ~~totalPrice - ~~price*~~num;
+    console.log(num);
+    console.log(totalNum);
+    if (num > this.data.limitNum && price > this.data.limitPrice) {
       canSubmit = true
     }
     if (num == 0) {
@@ -206,16 +219,24 @@ Page({
       cartGoodsIdList: cartGoodsIdList,
       cartGoods: cartGoods,
       totalNum: num,
+      totalPrice: price,
       canSubmit: canSubmit
     })
-
-    if (scence == 1) {
+    console.log(cartGoodsCountList);
+    console.log(cartGoodsIdList);
+    console.log(cartGoods);
+    console.log(num);
+    console.log(price);
+    console.log(canSubmit);
+    console.log(this.data.cartId);
+    if (this.data.scence == 1) {
       db.collection("CART").doc(this.data.cartId).update({
         data: {
           CART_GOODS: cartGoods,
           CART_GOODS_ID_LIST: cartGoodsIdList,
           GOODS_COUNT_LIST: cartGoodsCountList,
           TOTAL_NUM: num,
+          TOTAL_PRICE: price,
           LAST_UPDATE_DATE: new Date()
         }
       }).then(res => {
@@ -256,13 +277,14 @@ Page({
     //   orderGoodsIdListStorage: that.data.cartGoodsIdList,
     //   orderTotalNumStorage: that.data.totalNum
     // })
-    if (scence == 1) {
+    if (that.data.scence == 1) {
       db.collection("CART").doc(this.data.cartId).update({
         data: {
           CART_GOODS: [],
           CART_GOODS_ID_LIST: [],
           GOODS_COUNT_LIST: [],
           TOTAL_NUM: 0,
+          TOTAL_PRICE:0,
           LAST_UPDATE_DATE: new Date()
         }
       }).then(res => {

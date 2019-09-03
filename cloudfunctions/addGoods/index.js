@@ -23,6 +23,8 @@ exports.main = async(event, context) => {
         DATE: event.date,
         IS_SELECT: event.isSelect,
         FILEIDS: event.fileIds,
+        APPID:event.appid,
+        PRICE: event.price,
         VERSION: _.inc(1)
       }
     })

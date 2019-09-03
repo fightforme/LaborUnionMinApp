@@ -59,4 +59,30 @@ Page({
     console.log(event)
   },
 
+  getTime(event){
+    console.log(event);
+    wx.request({
+      url: 'http://localhost:8080/api/laborUnionLoginService/login',
+      method:'POST',
+      data: {
+        openId: '123123431213231233'
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log(res.data)
+      }
+    })
+  },
+
+  toOtherApp(event){
+     wx.navigateToMiniProgram({
+       appId: 'wxc94daee5c5b654ad',
+       envVersion: 'release',
+       success(res) {
+         console.log(res);
+       }
+     })
+  }
 })

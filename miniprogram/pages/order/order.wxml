@@ -28,7 +28,7 @@
 
          <view>
           <view wx:for="{{waitOrder}}" wx:for-item="order" wx:key="{{index}}">
-            <van-panel desc="{{order.ADDRESS_INFO.provinceName}}{{order.ADDRESS_INFO.cityName}}{{order.ADDRESS_INFO.countryName}}" title="{{order.ADDRESS_INFO.userName}} {{order.ADDRESS_INFO.telNumber}}" status="{{order.ORDER_STATUS}}" use-footer-slot>
+            <van-panel desc="{{order.ADDRESS_INFO.provinceName}}{{order.ADDRESS_INFO.cityName}}{{order.ADDRESS_INFO.countyName}}" title="{{order.ADDRESS_INFO.userName}} {{order.ADDRESS_INFO.telNumber}}" status="{{order.ORDER_STATUS}}" use-footer-slot>
               <view wx:for="{{order.ORDER_GOODS}}" wx:for-item="orderGoods" wx:key="{{index1}}">
                 <van-card num="{{order.ORDER_GOODS_COUNT_LIST[index]}}"  desc="{{orderGoods.GOODS_DESC}}" title="{{orderGoods.GOODS_NAME}}" thumb="{{ orderGoods.FILEIDS[0] }}" />
               </view>
@@ -50,7 +50,7 @@
 
          <view>
           <view wx:for="{{finishOrder}}" wx:for-item="order" wx:key="{{index}}">
-            <van-panel desc="{{order.ADDRESS_INFO.provinceName}}{{order.ADDRESS_INFO.cityName}}{{order.ADDRESS_INFO.countryName}}" title="{{order.ADDRESS_INFO.userName}} {{order.ADDRESS_INFO.telNumber}}" status="{{order.ORDER_STATUS}}" use-footer-slot>
+            <van-panel desc="{{order.ADDRESS_INFO.provinceName}}{{order.ADDRESS_INFO.cityName}}{{order.ADDRESS_INFO.countyName}}" title="{{order.ADDRESS_INFO.userName}} {{order.ADDRESS_INFO.telNumber}}" status="{{order.ORDER_STATUS}}" use-footer-slot>
               <view wx:for="{{order.ORDER_GOODS}}" wx:for-item="orderGoods" wx:key="{{index1}}">
                 <van-card num="{{order.ORDER_GOODS_COUNT_LIST[index]}}"  desc="{{orderGoods.GOODS_DESC}}" title="{{orderGoods.GOODS_NAME}}" thumb="{{ orderGoods.FILEIDS[0] }}" />
               </view>
@@ -71,7 +71,7 @@
 
          <view>
           <view wx:for="{{cancelOrder}}" wx:for-item="order" wx:key="{{index}}">
-            <van-panel desc="{{order.ADDRESS_INFO.provinceName}}{{order.ADDRESS_INFO.cityName}}{{order.ADDRESS_INFO.countryName}}" title="{{order.ADDRESS_INFO.userName}} {{order.ADDRESS_INFO.telNumber}}" status="{{order.ORDER_STATUS}}" use-footer-slot>
+            <van-panel desc="{{order.ADDRESS_INFO.provinceName}}{{order.ADDRESS_INFO.cityName}}{{order.ADDRESS_INFO.countyName}}" title="{{order.ADDRESS_INFO.userName}} {{order.ADDRESS_INFO.telNumber}}" status="{{order.ORDER_STATUS}}" use-footer-slot>
               <view wx:for="{{order.ORDER_GOODS}}" wx:for-item="orderGoods" wx:key="{{index1}}">
                 <van-card num="{{order.ORDER_GOODS_COUNT_LIST[index]}}"  desc="{{orderGoods.GOODS_DESC}}" title="{{orderGoods.GOODS_NAME}}" thumb="{{ orderGoods.FILEIDS[0] }}" />
               </view>

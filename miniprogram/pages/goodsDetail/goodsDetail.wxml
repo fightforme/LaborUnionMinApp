@@ -14,6 +14,9 @@
   <van-icon name='star-o' size ='20px'></van-icon><text space='emsp'>  物资所属节日:{{goodsInfo.FESTIVAL}}</text>
 </view>
 <van-cell title="物资图片" icon="photo-o" size='large'/>
+<view wx:if="{{goodsInfo.APPID.length>1}}">
+  <button type="primary" bindtap="toOtherApp">点击跳转到步步高小程序</button>
+</view>
 <view wx:for="{{goodsInfo.FILEIDS}}"  wx:key="index">
    <image src="{{item}}" mode='aspectFit' style="width:100%;" bindtap="showPic" data-src="{{item}}"></image>
 </view>
@@ -21,3 +24,4 @@
 <view>
   <text style="color:blue" space='emsp'>{{goodsInfo.REMARK}}</text>
 </view>
+

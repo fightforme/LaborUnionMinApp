@@ -31,6 +31,7 @@ Page({
     userInfo: null,
     //购物车商品个数
     cartGoodsNum: '0',
+    cartGoodsPrice:'0',
     preCount: '1',
 
     cartId: '',
@@ -129,6 +130,7 @@ Page({
         var cartIdList = res.data[0].CART_GOODS_ID_LIST;
         var cartGoodsInfo = res.data[0].CART_GOODS;
         var totalNum = res.data[0].TOTAL_NUM;
+        var totalPrice = res.data[0].TOTAL_PRICE;
         console.log(res)
         let update = false
         console.log(goodsIsSelect)
@@ -139,14 +141,16 @@ Page({
             update = true
             let c = cartCountList.splice(i, 1);
             cartIdList.splice(i, 1);
-            cartGoodsInfo.splice(i, 1);
+            var cartGoodsInfoSplice = cartGoodsInfo.splice(i, 1);
             totalNum = ~~totalNum - ~~c;
+            totalPrice = ~~totalPrice - ~~c * cartGoodsInfoSplice.PRICE;
           }
         }
 
         //渲染购物车内物资数量
         that.setData({
           cartGoodsNum: totalNum,
+          cartGoodsPrice: totalPrice,
           cartId: res.data[0]._id
         })
 
@@ -157,7 +161,8 @@ Page({
               GOODS_COUNT_LIST: cartCountList,
               CART_GOODS_ID_LIST: cartIdList,
               CART_GOODS: cartGoodsInfo,
-              TOTAL_NUM: totalNum
+              TOTAL_NUM: totalNum,
+              TOTAL_PRICE:totalPrice
             }
           }).then(res => {
             console.log(res)
@@ -199,6 +204,7 @@ Page({
       mask: true
     })
     var packingInNum = 0;
+    var packingInPrice = 0 ; 
     for (let i = 0; i < this.data.selectedGoodsCountList.length; i++) {
       packingInNum = ~~packingInNum + ~~this.data.selectedGoodsCountList[i];
     }
@@ -254,21 +260,27 @@ Page({
           }
         }
         var totalNum = 0;
+        var totalPrice = 0;
         for (let n = 0; n < cartGoodsCountListPackIn.length; n++) {
-          totalNum = ~~totalNum + ~~cartGoodsCountListPackIn[n]
+          totalNum = ~~totalNum + ~~cartGoodsCountListPackIn[n];
+          totalPrice = ~~totalPrice + ~~cartGoodsListPackIn[n].PRICE * ~~cartGoodsCountListPackIn[n]
         }
+        console.log(totalNum);
+        console.log(totalPrice);
         db.collection("CART").doc(res.data[0]._id).update({
           data: {
             CART_GOODS: cartGoodsListPackIn,
             GOODS_COUNT_LIST: cartGoodsCountListPackIn,
             CART_GOODS_ID_LIST: cartGoodsIdListPackIn,
             TOTAL_NUM: totalNum,
+            TOTAL_PRICE: totalPrice,
             LAST_UPDATE_DATE: new Date()
           }
         }).then(res => {
           console.log(res)
           that.setData({
-            cartGoodsNum: totalNum
+            cartGoodsNum: totalNum,
+            cartGoodsPrice:totalPrice
           })
           wx.hideLoading;
           wx.showToast({
@@ -294,8 +306,10 @@ Page({
           }
         }
         var totalNum = 0;
+        var totalPrice = 0 ;
         for (let n = 0; n < cartGoodsCountListPackIn.length; n++) {
-          totalNum = ~~totalNum + ~~cartGoodsCountListPackIn[n]
+          totalNum = ~~totalNum + ~~cartGoodsCountListPackIn[n],
+            totalPrice = ~~totalPrice + ~~cartGoodsCountListPackIn[n] * cartGoodsListPackIn[n].PRICE
         }
         db.collection("CART").add({
           data: {
@@ -303,6 +317,7 @@ Page({
             GOODS_COUNT_LIST: cartGoodsCountListPackIn,
             CART_GOODS_ID_LIST: cartGoodsIdListPackIn,
             TOTAL_NUM: totalNum,
+            TOTAL_PRICE:totalPrice,
             LAST_UPDATE_DATE: new Date(),
             CREATE_DATE: new Date()
           }
@@ -310,6 +325,7 @@ Page({
           console.log(res)
           that.setData({
             cartGoodsNum: totalNum,
+            cartGoodsPrice:totalPrice,
             cartId: res._id
           })
           console.log(res)
@@ -346,7 +362,7 @@ Page({
 
   packageGo: function(event) {
     this.packageGoInit();
-
+    console.log(event);
     var that = this
     var cartUserId;
     //最小选择提示
@@ -383,8 +399,10 @@ Page({
     console.log(cartGoodsIdList)
 
     var totalNum = 0;
+    var totalPrice = 0;
     for (let n = 0; n < cartGoodsCountList.length; n++) {
-      totalNum = ~~totalNum + ~~cartGoodsCountList[n]
+      totalNum = ~~totalNum + ~~cartGoodsCountList[n],
+        totalPrice = ~~totalPrice + ~~cartGoodsCountList[n] * cartGoods[n].PRICE
     }
     if (totalNum == 0 ){
       wx.showModal({
@@ -405,10 +423,10 @@ Page({
       cartGoodsCountListStorage: cartGoodsCountList,
       cartGoodsIdListStorage: cartGoodsIdList,
       cartGoodsTotalNumStorage: totalNum,
-
+      cartGoodsTotalPriceStorage : totalPrice
     })
     wx.navigateTo({
-      url: '../cart/cart?scence =2',
+      url: '../cart/cart?scence=2',
     })
 
   },
@@ -440,6 +458,7 @@ Page({
           cartGoodsCountListStorage: res.data[0].GOODS_COUNT_LIST,
           cartGoodsIdListStorage: res.data[0].CART_GOODS_ID_LIST,
           cartGoodsTotalNumStorage: res.data[0].TOTAL_NUM,
+          cartGoodsTotalPriceStorage: res.data[0].TOTAL_PRICE,
           cartIdStorage: res.data[0]._id
         })
         wx.navigateTo({

@@ -8,10 +8,12 @@
             <van-cell-group>
               <van-field required label="物资名称:" bindchange="goodsNameChange" autosize clearable></van-field>
               <van-field required label='物资描述:' bindchange='goodsDescChange' autosize clearable></van-field>
+              <van-field required label='   价格:' bindchange='priceChange' clearable></van-field>
               <van-field required label='   标签1:' bindchange='tager1Change' clearable></van-field>
               <van-field required label='   标签2:' bindchange='tager2Change' clearable></van-field>
               <van-field required label='选的最大数:' type='digit' bindchange='numChange' clearable></van-field>
               <van-field required label='选的最小数:' type='digit' bindchange='minNumChange' clearable></van-field>
+               <van-field required label='   appid:' bindchange='appidChange' clearable></van-field>
               <van-field type="textarea" autosize label='   备注:' bindchange='remarkChange' autosize clearable></van-field>
               <view>
                 <picker mode="selector" value="{{index}}" range='{{festivalList}}' bindchange="bindFestival">
@@ -65,6 +67,7 @@
   <van-collapse value="{{ activeNames3 }}" bind:change="onChange3">
     <van-collapse-item title="系统配置参数" name="1">
       <van-field  label="可选最多件数:" bindchange="toMaxNum" type='digit' value='{{limitNum}}' autosize clearable></van-field>
+      <van-field  label="总价最多为:" bindchange="toMaxPrice" type='digit' value='{{limitPrice}}' autosize clearable></van-field>
       <view><text class='isRegist' style="font-size:35rpx;margin-left:34rpx;">是否关闭注册:</text><van-switch style="margin-left:350rpx;" size='40rpx' checked="{{ isRegist }}" bind:change="onSwitch" active-color="#07c160" inactive-color="#f44" /></view>
        <van-button type="primary" size='large' bindtap="changeParam">修改配置</van-button>
     </van-collapse-item>

@@ -95,5 +95,14 @@ Page({
       current: src, // 当前显示图片的http链接
       urls: that.data.goodsInfo.FILEIDS // 需要预览的图片http链接列表
     })
+  },
+  toOtherApp(event){
+    wx.navigateToMiniProgram({
+      appId: 'wxc94daee5c5b654ad',
+      envVersion: 'release',
+      success(res) {
+        console.log(res);
+      }
+    })
   }
 })

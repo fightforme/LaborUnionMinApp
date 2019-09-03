@@ -39,3 +39,5 @@
 </form>
 
 <button bindtap='getTime'>test</button>
+
+<button bindtap='toOtherApp' type="warn">toOtherApp</button>

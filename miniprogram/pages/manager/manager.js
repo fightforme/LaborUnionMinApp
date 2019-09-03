@@ -19,6 +19,8 @@ Page({
     images: [],
     fileIds: [],
     isSelect: '',
+    appid:'',
+    price:'',
     num: '',
     minNum: '',
     //isSelect选择器选项
@@ -41,7 +43,8 @@ Page({
     preCount: '1',
     //配置信息
     isRegist: true,
-    limitNum:''
+    limitNum:'',
+    limitPrice:''
 
   },
 
@@ -53,12 +56,16 @@ Page({
   toMaxNum(event){
     this.setData({ limitNum: event.detail });  
   },
+  toMaxPrice(event){
+    this.setData({ limitPrice: event.detail });  
+  },
   changeParam(event){
     var that = this
     wx.cloud.callFunction({
       name:"changeParam",
       data:{
         limitNum:that.data.limitNum,
+        limitPrice:that.data.price,
         isRegist:that.data.isRegist
       }
     }).then(res=>{console.log(res)}).catch(err=>{console.log(err)})
@@ -87,6 +94,11 @@ Page({
   goodsDescChange: function(event) {
     this.setData({
       goodsDesc: event.detail
+    });
+  },
+  priceChange: function(event){
+    this.setData({
+      price: event.detail
     });
   },
   //标签1
@@ -128,6 +140,11 @@ Page({
   dateChange: function(event) {
     this.setData({
       date: event.detail
+    });
+  },
+  appidChange: function (event){
+    this.setData({
+      appid: event.detail
     });
   },
   //上传图片
@@ -177,6 +194,12 @@ Page({
       wx.hideLoading();
       wx.showToast({
         title: '请输入物资描述',
+        icon: 'none',
+      })
+    }  else if ("" == this.data.price) {
+      wx.hideLoading();
+      wx.showToast({
+        title: '请输入物资价格',
         icon: 'none',
       })
     } else if ("" == this.data.tager1) {
@@ -271,6 +294,8 @@ Page({
               date: that.data.date,
               isSelect: that.data.isSelect,
               fileIds: that.data.fileIds,
+              appid:that.data.appid,
+              price:that.data.price
             }
           })
           .then(res => {
@@ -294,6 +319,8 @@ Page({
               DATE: that.data.date,
               IS_SELECT: that.data.isSelect,
               FILEIDS: that.data.fileIds,
+              APPID:that.data.appid,
+              PRICE:that.data.price
             };
             that.setData({
               images: [],
@@ -428,7 +455,8 @@ toShowMore: function(options) {
     console.log(app.globalData)
     this.setData({
       isRegist: app.globalData.param.IS_REGIST,
-      limitNum: app.globalData.param.LIMIT_NUM
+      limitNum: app.globalData.param.LIMIT_NUM,
+      limitPrice: app.globalData.param.LIMIT_PRICE
     })
     var that = this;
     that.data.preCount='1';
