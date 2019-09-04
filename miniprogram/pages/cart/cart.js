@@ -80,7 +80,7 @@ Page({
       this.data.cartId = cartGoodsInfo.cartIdStorage
     }
     console.log(this.data.cartId);
-    if (this.data.totalNum > this.data.limitNum) {
+    if (this.data.totalNum > this.data.limitNum || this.data.totalPrice > this.data.limitPrice) {
       that.setData({
         canSubmit: true
       })
@@ -204,8 +204,8 @@ Page({
     cartGoodsCountList.splice(index, 1);
     cartGoodsIdList.splice(index, 1);
     cartGoods.splice(index, 1);
+    price = ~~totalPrice - ~~price * ~~num;
     num = ~~totalNum - ~~num;
-    price = ~~totalPrice - ~~price*~~num;
     console.log(num);
     console.log(totalNum);
     if (num > this.data.limitNum && price > this.data.limitPrice) {
@@ -222,13 +222,7 @@ Page({
       totalPrice: price,
       canSubmit: canSubmit
     })
-    console.log(cartGoodsCountList);
-    console.log(cartGoodsIdList);
-    console.log(cartGoods);
-    console.log(num);
-    console.log(price);
-    console.log(canSubmit);
-    console.log(this.data.cartId);
+
     if (this.data.scence == 1) {
       db.collection("CART").doc(this.data.cartId).update({
         data: {
