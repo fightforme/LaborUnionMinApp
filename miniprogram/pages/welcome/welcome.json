@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "van-button": "/vant-weapp/button/",
-    "van-tag": "/vant-weapp/tag/",
-    "van-field": "/vant-weapp/field/",
-    "van-datetime-picker": "/vant-weapp/datetime-picker/"
-  }
-}

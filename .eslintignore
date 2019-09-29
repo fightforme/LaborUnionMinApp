@@ -1,0 +1,9 @@
+dist/*.js
+src/components/vendor/**/*.*
+src/vendor/**/*.js
+src/main.js
+src/manifest.json
+config/*.js
+src/static/**/*.js
+babel.config.js
+postcss.config.js
